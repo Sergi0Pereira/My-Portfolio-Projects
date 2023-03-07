@@ -3,6 +3,7 @@ This repository contains a collection of the projects I've been working on latel
 
 Each project is stored in a separate folder and includes a brief description, relevant links, and instructions for how to run the project locally.
 
+
 ------------------------------------------------------------------------
 Projects
 Project 1: Data Analysis: How Does a Bike-Share Navigate Speedy Success?
