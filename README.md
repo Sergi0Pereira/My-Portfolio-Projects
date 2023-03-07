@@ -1,4 +1,4 @@
-# My-Portfolio-Projects
+# Portfolio Projects
 This repository contains a collection of the projects I've been working on lately. 
 
 Each project is stored in a separate folder and includes a brief description, relevant links, and instructions for how to run the project locally.
