@@ -31,9 +31,25 @@ Deliverable
 A clear statement of the business task:
 
 The business task is to analyze Cyclistic's historical trip data to answer three questions: 
-1) How do annual members and casual riders use Cyclistic bikes differently? 
+1) How do annual members and casual riders use Cyclistic bikes differently?
+	I can analyze the data to give the following answers:
+		- What kind of bikes the different users are using the most?
+		- What is the average duration of the trips sorted by users?
+		- What is the average distances of the trips sorted by users?
+		- What start and ended stations the different users are using the most? 
 2) Why would casual riders buy Cyclistic annual memberships? 
 3) How can Cyclistic use digital media to influence casual riders to become members? The insights gained from this analysis will drive business decisions related to marketing, product development, and strategic planning.
 ---------------------------------------------------------------------------------------------------------------------------
+Prepare
 
+Guiding questions
+Where is your data located?
+	- Data is stored in my Desktop. The raw data is compated in zip files in a folder with the named 'Case Study How Does a Bike-Share 	Navigate Speedy Success'.
+
+How is the data organized?
+	-  Data is organized in one CSV file for each month of the case study.
+
+How did you verify the data’s integrity?
+How does it help you answer your question?
+Are there any problems with the data?
 
