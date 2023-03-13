@@ -16,6 +16,7 @@ conversion of the datetime strings to a MySQL-compatible format, which can then 
 
 All of this procedures have benn done for each tripsdatacleaned table(202202 - 202301).
 */
+
 CREATE TABLE tripdatacleaned_202202 (
     ride_id VARCHAR(50) PRIMARY KEY,
     rideable_type VARCHAR(50),
@@ -73,9 +74,10 @@ UPDATE `tripdatacleaned_202202`
 SET 
     started_at_ = STR_TO_DATE(started_at, '%d/%m/%Y %H:%i:%s');
 
-
 ALTER TABLE `tripdatacleaned_202202`
 DROP COLUMN started_at;
+
+
 
 ALTER TABLE `tripdatacleaned_202202`
 ADD COLUMN ended_at_ DATETIME;
@@ -87,9 +89,10 @@ SET
 ALTER TABLE `tripdatacleaned_202202`
 DROP COLUMN ended_at;
 
+
+
 ALTER TABLE `tripdatacleaned_202202`
 ADD COLUMN duration varchar(30);
-
 
 UPDATE `tripdatacleaned_202202` 
 SET 
