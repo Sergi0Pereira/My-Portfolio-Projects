@@ -66,6 +66,8 @@ How is the data organized?
 
 How did you verify the data’s integrity?
 
+	- The data integrity has been verified by searching for inconsistent, duplicate, blank, and null data values. Any such data 	  has been removed with care and using common-sense approaches..
+
 How does it help you answer your question?
 
 Are there any problems with the data?
