@@ -1,27 +1,52 @@
 /*
-This SQL script is designed to modify the tripdatacleaned_202202 table by adding and removing columns and updating existing data. The script achieves the following:
+This SQL code creates a table named tripdatacleaned_202301 to store cleaned bike-sharing trip data for July 2022. It then loads data from a CSV file located at the
+ specified file path into the table, removes any rows containing null or empty values for certain columns, adds a new column to store trip durations, creates an 
+ index to improve query performance, and populates the new duration column for each row in the table.
 
-1) Adds a new column started_at_ to the tripdatacleaned_202202 table of type DATETIME.
-2) Converts the data in the started_at column to a DATETIME format and updates the new started_at_ column with the converted data.
-3) Removes the original started_at column.
-4) Adds a new column ended_at_ to the tripdatacleaned_202202 table of type DATETIME.
-5) Converts the data in the ended_at column to a DATETIME format and updates the new ended_at_ column with the converted data.
-6) Removes the original ended_at column.
-7) Adds a new column duration to the tripdatacleaned_202202 table of type VARCHAR(30).
-8)Calculates the duration of each trip in days, hours, minutes, and seconds using the TIMESTAMPDIFF function, and stores the result as a formatted string in the new 
-duration column.
+Table Name: tripdatacleaned_202301
 
-This script is useful for data cleaning and processing, particularly when dealing with datetime data in a non-standard format. The STR_TO_DATE function allows for 
-conversion of the datetime strings to a MySQL-compatible format, which can then be used to perform calculations and other operations on the data.
+Columns:
+- ride_id: VARCHAR(50), primary key
+- rideable_type: VARCHAR(50)
+- started_at: DATETIME
+- ended_at: DATETIME
+- start_station_name: VARCHAR(100)
+- start_station_id: VARCHAR(50)
+- end_station_name: VARCHAR(100)
+- end_station_id: VARCHAR(50)
+- start_lat: FLOAT
+- start_lng: FLOAT
+- end_lat: FLOAT
+- end_lng: FLOAT
+- member_casual: CHAR(6)
+- duration: VARCHAR(30), not null
+
+Index:
+- start_end: (started_at, ended_at)
+
+Data Loading:
+- Data is loaded from a CSV file located at 'C:/Users/tpess/OneDrive/Ambiente de Trabalho/Google Data Analyst Docs/Capstone/Data/202301-divvy-tripdata.csv'
+- The file is assumed to be comma-delimited with fields enclosed in quotation marks and lines terminated by newlines.
+- The first row of the file is ignored as it likely contains headers.
+
+Data Cleaning:
+- Any rows containing null or empty values for ride_id, rideable_type, started_at, ended_at, start_station_name, start_station_id, end_station_name, end_station_id,
+ start_lat, start_lng, end_lat, end_lng, or member_casual are deleted.
+
+Data Transformation:
+- A new column named duration of type VARCHAR(30) is added to store the duration of each trip.
+- The duration column is populated for each row in the table using the TIMESTAMPDIFF function to calculate the difference between the started_at and ended_at times in
+ days, hours, minutes, and seconds.
+- The result is concatenated into a single string and stored in the duration column.
 
 All of this procedures have benn done for each tripsdatacleaned table(202202 - 202301).
 */
 
-CREATE TABLE tripdatacleaned_202202 (
+CREATE TABLE tripdatacleaned_202301 (
     ride_id VARCHAR(50) PRIMARY KEY,
     rideable_type VARCHAR(50),
-    started_at VARCHAR(50),
-    ended_at VARCHAR(50),
+    started_at DATETIME,
+    ended_at DATETIME,
     start_station_name VARCHAR(100),
     start_station_id VARCHAR(50),
     end_station_name VARCHAR(100),
@@ -33,16 +58,14 @@ CREATE TABLE tripdatacleaned_202202 (
     member_casual CHAR(6)
 );
 
-
-LOAD DATA INFILE 'C:/Users/tpess/OneDrive/Ambiente de Trabalho/Google Data Analyst Docs/Capstone/Data/202202-divvy-tripdata.csv'
-INTO TABLE tripdatacleaned_202202
-FIELDS TERMINATED BY ';'
+LOAD DATA INFILE 'C:/Users/tpess/OneDrive/Ambiente de Trabalho/Google Data Analyst Docs/Capstone/Data/202301-divvy-tripdata.csv'
+INTO TABLE tripdatacleaned_202301
+FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
-
-DELETE FROM tripdatacleaned_202202 
+DELETE FROM tripdatacleaned_202301 
 WHERE
     ride_id IS NULL OR ride_id = ''
     OR rideable_type IS NULL
@@ -67,52 +90,27 @@ WHERE
     OR member_casual = '';
 
 
-ALTER TABLE `tripdatacleaned_202202`
-ADD COLUMN started_at_ DATETIME;
+ALTER TABLE `tripdatacleaned_202301`
+ADD COLUMN `duration` VARCHAR(30) NOT NULL,
+ADD INDEX `start_end` (`started_at`, `ended_at`);
 
-UPDATE `tripdatacleaned_202202` 
+
+UPDATE `tripdatacleaned_202301` 
 SET 
-    started_at_ = STR_TO_DATE(started_at, '%d/%m/%Y %H:%i:%s');
-
-ALTER TABLE `tripdatacleaned_202202`
-DROP COLUMN started_at;
-
-
-
-ALTER TABLE `tripdatacleaned_202202`
-ADD COLUMN ended_at_ DATETIME;
-
-UPDATE `tripdatacleaned_202202` 
-SET 
-    ended_at_ = STR_TO_DATE(ended_at, '%d/%m/%Y %H:%i:%s');
-
-ALTER TABLE `tripdatacleaned_202202`
-DROP COLUMN ended_at;
-
-
-
-ALTER TABLE `tripdatacleaned_202202`
-ADD COLUMN duration varchar(30);
-
-UPDATE `tripdatacleaned_202202` 
-SET 
-    duration = CONCAT(TIMESTAMPDIFF(DAY,
-                started_at_,
-                ended_at_),
+    duration = CONCAT(TIMESTAMPDIFF(DAY, started_at, ended_at),
             'd ',
             MOD(TIMESTAMPDIFF(HOUR,
-                    started_at_,
-                    ended_at_),
+                    started_at,
+                    ended_at),
                 24),
             'h ',
             MOD(TIMESTAMPDIFF(MINUTE,
-                    started_at_,
-                    ended_at_),
+                    started_at,
+                    ended_at),
                 60),
             'm ',
             MOD(TIMESTAMPDIFF(SECOND,
-                    started_at_,
-                    ended_at_),
+                    started_at,
+                    ended_at),
                 60),
             's');
-
