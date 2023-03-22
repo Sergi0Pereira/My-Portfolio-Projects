@@ -6,7 +6,10 @@ Each project is stored in a separate folder and includes a brief description, re
 
 ------------------------------------------------------------------------
 Projects
+
 Project 1: Data Analysis: How Does a Bike-Share Navigate Speedy Success?
+
+Project 2: DataBase Creation : Nautic Club 
 
 ------------------------------------------------------------------------
 
