@@ -2,20 +2,14 @@ library(tidyverse)
 
 library(skimr)
 
-<<<<<<< HEAD
 library(dplyr)
 
-# Set the Work Directory
-setwd("C:/Users/tpess/OneDrive/Ambiente de Trabalho/Google Data Analyst Docs/Capstone/Data")
-=======
-
-library(dplyr)
 
 # Set the Work Directory
 setwd(
   "C:/Users/tpess/OneDrive/Ambiente de Trabalho/Google Data Analyst Docs/Capstone/Data"
 )
->>>>>>> 419f7d3973cebd7fb47fc3736a4094eec4e7d27a
+
 
 # Import of the data from the csv files
 February <- read.csv("202202-divvy-tripdata.csv")
@@ -31,12 +25,8 @@ November <- read.csv("202211-divvy-tripdata.csv")
 December <- read.csv("202212-divvy-tripdata.csv")
 January <- read.csv("202301-divvy-tripdata.csv")
 
-<<<<<<< HEAD
-setwd("C:/Users/tpess/OneDrive/Ambiente de Trabalho/Case Study How Does a Bike-Share
-      Navigate Speedy Success/Data Analysis - How Does a Bike-Share Navigate Speedy Success/R")
 
-=======
->>>>>>> 419f7d3973cebd7fb47fc3736a4094eec4e7d27a
+
 # Bind all the months in one single object
 all_data <-
   rbind(
