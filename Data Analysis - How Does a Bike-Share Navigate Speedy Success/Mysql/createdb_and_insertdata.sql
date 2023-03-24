@@ -25,7 +25,15 @@ Index:
 - start_end: (started_at, ended_at)
 
 Data Loading:
+<<<<<<< HEAD
 - Data is loaded from a CSV file located at 'C:/Users/tpess/OneDrive/Ambiente de Trabalho/Google Data Analyst Docs/Capstone/Data/202202-divvy-tripdata.csv'
+=======
+<<<<<<< HEAD
+- Data is loaded from a CSV file located at 'C:/Users/tpess/OneDrive/Ambiente de Trabalho/Google Data Analyst Docs/Capstone/Data/202202-divvy-tripdata.csv'
+=======
+- Data is loaded from a CSV file located at 'C:/Users/tpess/OneDrive/Ambiente de Trabalho/Google Data Analyst Docs/Capstone/Data/202301-divvy-tripdata.csv'
+>>>>>>> a56c936cab5581192a52d93aab13244bac6e344b
+>>>>>>> 419f7d3973cebd7fb47fc3736a4094eec4e7d27a
 - The file is assumed to be comma-delimited with fields enclosed in quotation marks and lines terminated by newlines.
 - The first row of the file is ignored as it likely contains headers.
 
@@ -39,15 +47,30 @@ Data Transformation:
  days, hours, minutes, and seconds.
 - The result is concatenated into a single string and stored in the duration column.
 
+<<<<<<< HEAD
 All of this procedures have benn done for each tripsdatacleaned table(202202 - 202202).
 */
 
 #SET innodb_lock_wait_timeout = 60;
 
+=======
+<<<<<<< HEAD
+All of this procedures have benn done for each tripsdatacleaned table(202202 - 202202).
+*/
+>>>>>>> 419f7d3973cebd7fb47fc3736a4094eec4e7d27a
 CREATE DATABASE bike_riding_data;
 use bike_riding_data;
 
 CREATE TABLE all_data_clean (
+<<<<<<< HEAD
+=======
+=======
+All of this procedures have benn done for each tripsdatacleaned table(202202 - 202301).
+*/
+
+CREATE TABLE tripdatacleaned_202301 (
+>>>>>>> a56c936cab5581192a52d93aab13244bac6e344b
+>>>>>>> 419f7d3973cebd7fb47fc3736a4094eec4e7d27a
     ride_id VARCHAR(50) PRIMARY KEY,
     rideable_type VARCHAR(50),
     started_at DATETIME,
@@ -63,13 +86,27 @@ CREATE TABLE all_data_clean (
     member_casual CHAR(6)
 );
 
+<<<<<<< HEAD
 LOAD DATA INFILE 'C:/Users/tpess/OneDrive/Ambiente de Trabalho/Google Data Analyst Docs/Capstone/Data/202209-divvy-tripdata.csv'
 INTO TABLE tripdatacleaned_202209
+=======
+<<<<<<< HEAD
+LOAD DATA INFILE 'C:/Users/tpess/OneDrive/Ambiente de Trabalho/Google Data Analyst Docs/Capstone/Data/202209-divvy-tripdata.csv'
+INTO TABLE tripdatacleaned_202209
+=======
+LOAD DATA INFILE 'C:/Users/tpess/OneDrive/Ambiente de Trabalho/Google Data Analyst Docs/Capstone/Data/202301-divvy-tripdata.csv'
+INTO TABLE tripdatacleaned_202301
+>>>>>>> a56c936cab5581192a52d93aab13244bac6e344b
+>>>>>>> 419f7d3973cebd7fb47fc3736a4094eec4e7d27a
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 419f7d3973cebd7fb47fc3736a4094eec4e7d27a
 INSERT INTO all_data_clean
 SELECT * FROM tripdatacleaned_202202 UNION SELECT * FROM tripdatacleaned_202203 UNION SELECT * FROM tripdatacleaned_202204 UNION SELECT * FROM
 		      tripdatacleaned_202205 UNION SELECT * FROM tripdatacleaned_202206 UNION SELECT * FROM tripdatacleaned_202207 UNION SELECT * FROM		
@@ -84,6 +121,12 @@ DROP COLUMN end_lng;
 
 
 DELETE FROM all_data_clean 
+<<<<<<< HEAD
+=======
+=======
+DELETE FROM tripdatacleaned_202301 
+>>>>>>> a56c936cab5581192a52d93aab13244bac6e344b
+>>>>>>> 419f7d3973cebd7fb47fc3736a4094eec4e7d27a
 WHERE
     ride_id IS NULL OR ride_id = ''
     OR rideable_type IS NULL
@@ -100,15 +143,51 @@ WHERE
     OR end_station_name = ''
     OR end_station_id IS NULL
     OR end_station_id = ''
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+    OR start_lat IS NULL
+    OR start_lng IS NULL
+    OR end_lat IS NULL
+    OR end_lng IS NULL
+>>>>>>> a56c936cab5581192a52d93aab13244bac6e344b
+>>>>>>> 419f7d3973cebd7fb47fc3736a4094eec4e7d27a
     OR member_casual IS NULL
     OR member_casual = '';
 
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 419f7d3973cebd7fb47fc3736a4094eec4e7d27a
 
 ALTER TABLE `all_data_clean`
 ADD COLUMN `duration` VARCHAR(30) NOT NULL;
 
+<<<<<<< HEAD
 UPDATE `all_data_clean` 
+=======
+ALTER TABLE `all_data_clean`
+ADD COLUMN `duration2` VARCHAR(30) NOT NULL;
+
+UPDATE all_data_clean
+SET duration2 = (SELECT 
+            round(SUM(TIME_TO_SEC(duration))) / 3600
+        FROM
+            all_data_clean);
+
+
+UPDATE `all_data_clean` 
+=======
+ALTER TABLE `tripdatacleaned_202301`
+ADD COLUMN `duration` VARCHAR(30) NOT NULL,
+ADD INDEX `start_end` (`started_at`, `ended_at`);
+
+
+UPDATE `tripdatacleaned_202301` 
+>>>>>>> a56c936cab5581192a52d93aab13244bac6e344b
+>>>>>>> 419f7d3973cebd7fb47fc3736a4094eec4e7d27a
 SET 
     duration = CONCAT(TIMESTAMPDIFF(DAY, started_at, ended_at),
             'd ',
@@ -126,6 +205,7 @@ SET
                     started_at,
                     ended_at),
                 60),
+<<<<<<< HEAD
             's');
 
 delete from all_data_clean
@@ -144,8 +224,22 @@ SET total_hours = TIMEDIFF(ended_at, started_at);
 
             
 
+=======
+<<<<<<< HEAD
+            's');
+
+            
+delete from all_data_clean
+where duration <= '0d 0h 0m 0s';
+>>>>>>> 419f7d3973cebd7fb47fc3736a4094eec4e7d27a
             
           
 
 
 
+<<<<<<< HEAD
+=======
+=======
+            's');
+>>>>>>> a56c936cab5581192a52d93aab13244bac6e344b
+>>>>>>> 419f7d3973cebd7fb47fc3736a4094eec4e7d27a
