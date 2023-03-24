@@ -1,32 +1,13 @@
-<<<<<<< HEAD
-=======
-# Portfolio Projects
->>>>>>> 419f7d3973cebd7fb47fc3736a4094eec4e7d27a
+
 This repository contains a collection of the projects I've been working on lately. 
 
 Each project is stored in a separate folder and includes a brief description, relevant links, and instructions for how to run the project locally.
 
 
-------------------------------------------------------------------------
-Projects
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-Project 1: Data Analysis: How Does a Bike-Share Navigate Speedy Success?
-
-=======
->>>>>>> 419f7d3973cebd7fb47fc3736a4094eec4e7d27a
-
 Project 1: Data Analysis: How Does a Bike-Share Navigate Speedy Success?
 
 Project 2: DataBase Creation : Nautic Club 
-
-<<<<<<< HEAD
-=======
->>>>>>> a56c936cab5581192a52d93aab13244bac6e344b
->>>>>>> 419f7d3973cebd7fb47fc3736a4094eec4e7d27a
 ------------------------------------------------------------------------
-
 
 Getting Started
 To view any of these projects, simply clone this repository to your local machine and navigate to the project folder you're interested in.
