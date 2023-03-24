@@ -1,0 +1,93 @@
+library(tidyverse)
+
+library(skimr)
+
+library(dplyr)
+
+# Set the Work Directory
+setwd("C:/Users/tpess/OneDrive/Ambiente de Trabalho/Google Data Analyst Docs/Capstone/Data")
+
+# Import of the data from the csv files
+February <- read.csv("202202-divvy-tripdata.csv")
+March <- read.csv("202203-divvy-tripdata.csv")
+April <- read.csv("202204-divvy-tripdata.csv")
+May <- read.csv("202205-divvy-tripdata.csv")
+June <- read.csv("202206-divvy-tripdata.csv")
+July <- read.csv("202207-divvy-tripdata.csv")
+August <- read.csv("202208-divvy-tripdata.csv")
+September <- read.csv("202209-divvy-tripdata.csv")
+October <- read.csv("202210-divvy-tripdata.csv")
+November <- read.csv("202211-divvy-tripdata.csv")
+December <- read.csv("202212-divvy-tripdata.csv")
+January <- read.csv("202301-divvy-tripdata.csv")
+
+setwd("C:/Users/tpess/OneDrive/Ambiente de Trabalho/Case Study How Does a Bike-Share
+      Navigate Speedy Success/Data Analysis - How Does a Bike-Share Navigate Speedy Success/R")
+
+# Bind all the months in one single object
+all_data <-
+  rbind(
+    February,
+    March,
+    April,
+    May,
+    June,
+    July,
+    August,
+    September,
+    October,
+    November,
+    December,
+    January
+  )
+# Transform the blanks values in missing values. It´s not possible to fulfill the blanks because
+# data is missing and cannot be recover.
+all_data [all_data == ""] <- NA
+# Cleaning the missing values
+all_data_clean <- na.omit(all_data)
+# Erase columns that not gonna be used.
+all_data_clean <- all_data_clean %>%
+  select(-c(start_lat, start_lng, end_lat, end_lng))
+# Rename variables.
+all_data_clean <- all_data_clean %>%
+  rename(bike_type = rideable_type  , user_type = member_casual)
+# The code uses the 'as.POSIXct()' function, a built-in R function
+# that converts character strings to POSIXct format.
+all_data_clean$ended_at <-
+  as.POSIXct(all_data_clean$ended_at, format = "%Y-%m-%d %H:%M:%S")
+all_data_clean$started_at <-
+  as.POSIXct(all_data_clean$started_at, format = "%Y-%m-%d %H:%M:%S")
+#Aggregate ride by day,month and year for further analysis.
+all_data_clean$day <-
+  format(as.Date(all_data_clean$started_at), "%d")
+all_data_clean$month <-
+  format(as.Date(all_data_clean$started_at), "%m")
+all_data_clean$year <-
+  format(as.Date(all_data_clean$started_at), "%Y")
+all_data_clean$day_of_week <-
+  format(as.Date(all_data_clean$started_at), "%A")
+
+# Seconds, minutes and Hours ( both total and not complemented) of each trip.
+trip_length_seconds <-
+  as.numeric(difftime(all_data_clean$ended_at, all_data_clean$started_at, units = "secs"))
+all_data_clean$trip_length_seconds  <-
+  as.numeric(trip_length_seconds + (trip_length_seconds %% 60))
+
+all_data_clean$trip_length_seconds
+all_data_clean$trip_length_seconds
+all_data_clean$trip_length_hours <-
+  as.numeric(all_data_clean$trip_length_seconds / 3600)
+all_data_clean$trip_length_minutes <-
+  as.numeric(all_data_clean$trip_length_seconds / 60)
+
+# Removing negative and zero values for trips duration.
+all_data_clean_fv <-
+  all_data_clean[!(all_data_clean$trip_length_hours <= 0),]
+all_data_clean_fv <-
+  all_data_clean[!(all_data_clean$trip_length_minutes <= 0),]
+all_data_clean_fv <-
+  all_data_clean[!(all_data_clean$trip_length_seconds <= 0),]
+all_data_clean_fv <- na.omit(all_data_clean_fv)
+
+# Metadata Visualization
+skim(all_data_clean_fv)
