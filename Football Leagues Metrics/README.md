@@ -1,4 +1,3 @@
-%md
 
 # Football Data Analysis Project
 
