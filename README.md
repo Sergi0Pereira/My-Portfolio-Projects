@@ -8,6 +8,8 @@ Project 1: Data Analysis: How Does a Bike-Share Navigate Speedy Success?
 
 Project 2: DataBase Creation : Nautic Club 
 
+Project 3: FootBall Leagues
+
 Getting Started
 To view any of these projects, simply clone this repository to your local machine and navigate to the project folder you're interested in.
 
